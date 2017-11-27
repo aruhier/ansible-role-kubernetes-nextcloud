@@ -1,0 +1,61 @@
+---
+
+kubernetes_nextcloud_image: "nextcloud:12.0.3-fpm"
+kubernetes_nextcloud_nginx_image: "nginx:1.13.7-alpine"
+
+kubernetes_nextcloud_namespace: "default"
+kubernetes_nextcloud_deployment: "nextcloud-deployment"
+kubernetes_nextcloud_app: "nextcloud"
+kubernetes_nextcloud_configmap: "nextcloud"
+kubernetes_nextcloud_cronjob: "nextcloud-cron"
+kubernetes_nextcloud_service: "nextcloud"
+
+kubernetes_nextcloud_node_selector: {}
+kubernetes_nextcloud_replicas: 1
+kubernetes_nextcloud_revision_history: 1
+
+kubernetes_nextcloud_deployment_labels: {}
+kubernetes_nextcloud_deployment_annotations: {}
+
+kubernetes_nextcloud_resources:
+  limits:
+    memory: "512Mi"
+  requests:
+    memory: "256Mi"
+
+kubernetes_nextcloud_nginx_resources:
+  limits:
+    memory: "256Mi"
+  requests:
+    memory: "64Mi"
+
+kubernetes_nextcloud_setup_ingress: false
+kubernetes_nextcloud_ingress:
+  name: "nextcloud-ingress"
+  host: "nextcloud.example.com"
+  annotations:
+  tls:
+
+kubernetes_nextcloud_cron_period: "*/15 * * * *"
+# Useful when nextcloud restrict the requests to some hostnames
+kubernetes_nextcloud_cron_hostname: "nextcloud.example.com"
+
+kubernetes_nextcloud_data_volume:
+  definition:
+
+kubernetes_nextcloud_config_volume:
+  definition:
+
+kubernetes_nextcloud_base_volume:
+  definition:
+    emptyDir: {}
+
+kubernetes_nextcloud_custom_apps_volume:
+  definition:
+    emptyDir: {}
+
+kubernetes_nextcloud_theme_volume:
+  definition:
+    emptyDir: {}
+
+# vim: set ts=2 sw=2:

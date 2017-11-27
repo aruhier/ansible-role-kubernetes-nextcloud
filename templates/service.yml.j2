@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ kubernetes_nextcloud_service }}
+  namespace: {{ kubernetes_nextcloud_namespace }}
+spec:
+  selector:
+    app: {{ kubernetes_nextcloud_app }}
+  ports:
+    - port: 80
+      targetPort: 80

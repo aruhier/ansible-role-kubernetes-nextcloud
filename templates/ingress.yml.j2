@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ kubernetes_nextcloud_ingress.name }}
+  namespace: {{ kubernetes_nextcloud_namespace }}
+{% if kubernetes_nextcloud_ingress.annotations %}
+  annotations:
+    {{ kubernetes_nextcloud_ingress.annotations | to_nice_yaml | indent }}
+{% endif %}
+spec:
+{% if kubernetes_nextcloud_ingress.tls %}
+  tls:
+    {{ kubernetes_nextcloud_ingress.tls | to_nice_yaml | indent }}
+{% endif %}
+  rules:
+  - host: {{ kubernetes_nextcloud_ingress.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ kubernetes_nextcloud_service }}
+          servicePort: 80

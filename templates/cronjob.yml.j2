@@ -1,0 +1,23 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ kubernetes_nextcloud_cronjob }}
+  namespace: {{ kubernetes_nextcloud_namespace }}
+  labels:
+    app: {{ kubernetes_nextcloud_app }}
+spec:
+  schedule: "{{ kubernetes_nextcloud_cron_period }}"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - image: busybox
+              name: update-trigger
+              args:
+                - "/bin/sh"
+                - "-c"
+                - "wget http://{{ kubernetes_nextcloud_service }}/cron.php --header='Host: {{ kubernetes_nextcloud_cron_hostname }}'"

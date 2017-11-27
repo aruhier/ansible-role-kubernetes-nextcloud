@@ -1,0 +1,73 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ kubernetes_nextcloud_deployment }}
+  namespace: {{ kubernetes_nextcloud_namespace }}
+  labels:
+    app: {{ kubernetes_nextcloud_app }}
+{% if kubernetes_nextcloud_deployment_labels %}
+    {{ kubernetes_nextcloud_deployment_labels | to_nice_yaml | indent(4) }}
+{% endif %}
+{% if kubernetes_nextcloud_deployment_annotations %}
+  annotations:
+    {{ kubernetes_nextcloud_deployment_annotations | to_nice_yaml | indent(4) }}
+{% endif %}
+spec:
+  replicas: {{ kubernetes_nextcloud_replicas }}
+  revisionHistoryLimit: {{ kubernetes_nextcloud_revision_history }}
+  selector:
+    matchLabels:
+      app: {{ kubernetes_nextcloud_app }}
+  template:
+    metadata:
+      labels:
+        app: {{ kubernetes_nextcloud_app }}
+    spec:
+{% if kubernetes_nextcloud_node_selector|default({}) %}
+      nodeSelector:
+        {{ kubernetes_nextcloud_node_selector | to_yaml | indent(8) }}
+{% endif %}
+      restartPolicy: Always
+      containers:
+      - image: {{ kubernetes_nextcloud_image }}
+        imagePullPolicy: Always
+        name: nextcloud
+        resources:
+          {{ kubernetes_nextcloud_resources | to_yaml | indent(10) }}
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        {% filter indent(8) %}{% include "templates/deployment_shared_mounts.include.j2" %}{% endfilter %}
+
+        - mountPath: /var/www/html/config/
+          name: nextcloud-config
+          {% if kubernetes_nextcloud_config_volume.subPath is defined %}subPath: {{ kubernetes_nextcloud_config_volume.subPath }}{% endif %}
+
+        - mountPath: /var/www/html/data/
+          name: nextcloud-data
+          {% if kubernetes_nextcloud_data_volume.subPath is defined %}subPath: {{ kubernetes_nextcloud_data_volume.subPath }}{% endif %}
+
+      - image: {{ kubernetes_nextcloud_nginx_image }}
+        imagePullPolicy: Always
+        name: nginx
+        resources:
+          {{ kubernetes_nextcloud_nginx_resources | to_yaml | indent(10) }}
+        volumeMounts:
+        {% filter indent(8) %}{% include "templates/deployment_shared_mounts.include.j2" %}{% endfilter %}
+
+        - mountPath: /etc/nginx/nginx.conf
+          name: nextcloud-configmap
+          subPath: nginx.conf
+      volumes:
+      - {"name": "nextcloud-basedir", {{ kubernetes_nextcloud_base_volume.definition | to_yaml }}}
+      - {"name": "nextcloud-custom-apps", {{ kubernetes_nextcloud_custom_apps_volume.definition | to_yaml }}}
+      - {"name": "nextcloud-config", {{ kubernetes_nextcloud_config_volume.definition | to_yaml }}}
+      - {"name": "nextcloud-data", {{ kubernetes_nextcloud_data_volume.definition | to_yaml }}}
+      - {"name": "nextcloud-theme", {{ kubernetes_nextcloud_theme_volume.definition | to_yaml }}}
+      - name: nextcloud-configmap
+        configMap:
+          name: {{ kubernetes_nextcloud_configmap }}
+          items:
+            - key: nginx.conf
+              path: nginx.conf
+status: {}
