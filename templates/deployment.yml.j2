@@ -35,7 +35,8 @@ spec:
         resources:
           {{ kubernetes_nextcloud_resources | to_yaml | indent(10) }}
         ports:
-        - containerPort: 9000
+        - name: php-fpm
+          containerPort: 9000
         volumeMounts:
         {% filter indent(8) %}{% include "templates/deployment_shared_mounts.include.j2" %}{% endfilter %}
 
