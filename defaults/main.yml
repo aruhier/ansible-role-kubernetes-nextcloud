@@ -38,7 +38,8 @@ kubernetes_nextcloud_ingress:
 
 kubernetes_nextcloud_cron_period: "*/15 * * * *"
 # Useful when nextcloud restrict the requests to some hostnames
-kubernetes_nextcloud_cron_hostname: "nextcloud.example.com"
+# Used by cron and health check
+kubernetes_nextcloud_hostname: "nextcloud.example.com"
 
 kubernetes_nextcloud_data_volume:
   definition:

@@ -37,6 +37,20 @@ spec:
         ports:
         - name: php-fpm
           containerPort: 9000
+        readinessProbe:
+          tcpSocket:
+            port: php-fpm
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+            httpHeaders:
+            - name: Host
+              value: {{ kubernetes_nextcloud_hostname }}
+          initialDelaySeconds: 60
+          periodSeconds: 10
         volumeMounts:
         {% filter indent(8) %}{% include "templates/deployment_shared_mounts.include.j2" %}{% endfilter %}
 
@@ -51,6 +65,15 @@ spec:
       - image: {{ kubernetes_nextcloud_nginx_image }}
         imagePullPolicy: Always
         name: nginx
+        ports:
+        - name: http
+          containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /nginx-health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
         resources:
           {{ kubernetes_nextcloud_nginx_resources | to_yaml | indent(10) }}
         volumeMounts:
