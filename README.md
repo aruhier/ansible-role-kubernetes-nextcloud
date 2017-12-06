@@ -46,8 +46,10 @@ kubernetes_nextcloud_nginx_resources:
 
 # Cronjob period
 kubernetes_nextcloud_cron_period: "*/15 * * * *"
+
 # Useful when nextcloud restrict the requests to some hostnames
-kubernetes_nextcloud_cron_hostname: "nextcloud.example.com"
+# IF NOT SET CORRECTLY, CRON AND HEALTHCHECKS CAN BREAK
+kubernetes_nextcloud_hostname: "nextcloud.example.com"
 
 # Setup ingress for nextcloud
 kubernetes_nextcloud_setup_ingress: false
@@ -146,7 +148,7 @@ Example Playbook
           hosts:
             - "nextcloud.example.com"
 
-    kubernetes_nextcloud_cron_hostname: "{{ kubernetes_nextcloud_ingress.host }}"
+    kubernetes_nextcloud_hostname: "{{ kubernetes_nextcloud_ingress.host }}"
   roles:
     - role: Anthony25.kubernetes-nextcloud
 ```
