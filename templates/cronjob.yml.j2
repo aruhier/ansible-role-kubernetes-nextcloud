@@ -20,4 +20,4 @@ spec:
               args:
                 - "/bin/sh"
                 - "-c"
-                - "wget http://{{ kubernetes_nextcloud_service }}/cron.php --header='Host: {{ kubernetes_nextcloud_hostname }}'"
+                - "wget http://{{ kubernetes_nextcloud_service }}/cron.php --header='Host: {{ kubernetes_nextcloud_hostname }}'; exit"
