@@ -73,7 +73,7 @@ kubernetes_nextcloud_data_volume:
 
 # Nextcloud config volume, mounted as /var/www/html/config (see examples for
 # more details)
-kubernetes_nextcloud_data_volume:
+kubernetes_nextcloud_config_volume:
   definition:
 
 ## Optional volumes ##
