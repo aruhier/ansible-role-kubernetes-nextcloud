@@ -1,7 +1,7 @@
 ---
 
-kubernetes_nextcloud_image: "nextcloud:15.0.2-fpm-alpine"
-kubernetes_nextcloud_nginx_image: "nginx:1.14.2-alpine"
+kubernetes_nextcloud_image: "nextcloud:15.0.7-fpm-alpine"
+kubernetes_nextcloud_nginx_image: "nginx:1.16.0-alpine"
 
 kubernetes_nextcloud_namespace: "default"
 kubernetes_nextcloud_deployment: "nextcloud-deployment"
