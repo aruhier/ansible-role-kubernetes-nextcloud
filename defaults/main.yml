@@ -1,6 +1,6 @@
 ---
 
-kubernetes_nextcloud_image: "nextcloud:20.0.5-fpm-alpine"
+kubernetes_nextcloud_image: "nextcloud:21.0.0-fpm-alpine"
 kubernetes_nextcloud_nginx_image: "nginx:1.18.0-alpine"
 
 kubernetes_nextcloud_namespace: "default"
@@ -19,13 +19,13 @@ kubernetes_nextcloud_deployment_annotations: {}
 
 kubernetes_nextcloud_resources:
   limits:
-    memory: "512Mi"
+    memory: "1Gi"
   requests:
     memory: "256Mi"
 
 kubernetes_nextcloud_nginx_resources:
   limits:
-    memory: "256Mi"
+    memory: "512Mi"
   requests:
     memory: "64Mi"
 
