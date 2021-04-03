@@ -1,7 +1,6 @@
 ---
 
-kubernetes_nextcloud_image: "nextcloud:21.0.0-fpm-alpine"
-kubernetes_nextcloud_nginx_image: "nginx:1.18.0-alpine"
+kubernetes_nextcloud_image: "nextcloud:21.0.0-apache"
 
 kubernetes_nextcloud_namespace: "default"
 kubernetes_nextcloud_deployment: "nextcloud-deployment"
@@ -19,15 +18,9 @@ kubernetes_nextcloud_deployment_annotations: {}
 
 kubernetes_nextcloud_resources:
   limits:
-    memory: "1Gi"
+    memory: "1.5Gi"
   requests:
-    memory: "256Mi"
-
-kubernetes_nextcloud_nginx_resources:
-  limits:
     memory: "512Mi"
-  requests:
-    memory: "64Mi"
 
 kubernetes_nextcloud_setup_ingress: false
 kubernetes_nextcloud_ingress:

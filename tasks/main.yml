@@ -5,7 +5,6 @@
   args:
     stdin: "{{ item }}"
   with_items:
-    - "{{ lookup('template', 'configmap.yml.j2') }}"
     - "{{ lookup('template', 'deployment.yml.j2') }}"
     - "{{ lookup('template', 'service.yml.j2') }}"
     - "{{ lookup('template', 'cronjob.yml.j2') }}"
