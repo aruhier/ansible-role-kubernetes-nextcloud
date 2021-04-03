@@ -29,7 +29,7 @@ kubernetes_nextcloud_ingress:
   annotations:
   tls:
 
-kubernetes_nextcloud_cron_period: "*/15 * * * *"
+kubernetes_nextcloud_cron_period: "*/5 * * * *"
 # Useful when nextcloud restrict the requests to some hostnames
 # Used by cron and health check
 kubernetes_nextcloud_hostname: "nextcloud.example.com"
