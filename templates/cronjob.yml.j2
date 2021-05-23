@@ -16,7 +16,7 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-            - image: busybox
+            - image: busybox:1.33.1-musl
               name: update-trigger
               args:
                 - "/bin/sh"
