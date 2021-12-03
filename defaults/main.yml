@@ -1,6 +1,6 @@
 ---
 
-kubernetes_nextcloud_image: "nextcloud:22.2.0-apache"
+kubernetes_nextcloud_image: "nextcloud:23.0.0-apache"
 
 kubernetes_nextcloud_namespace: "default"
 kubernetes_nextcloud_deployment: "nextcloud-deployment"
