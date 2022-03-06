@@ -13,6 +13,9 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: {{ kubernetes_nextcloud_app }}
         spec:
           restartPolicy: OnFailure
           containers:
