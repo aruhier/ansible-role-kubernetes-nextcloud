@@ -2,7 +2,7 @@
 galaxy_info:
   author: Anthony Ruhier (Anthony25)
   description: Install Nextcloud on Kubernetes
-  issue_tracker_url: https://github.com/Anthony25/ansible-role-kubernetes-nextcloud/issues
+  issue_tracker_url: https://github.com/aruhier/ansible-role-kubernetes-nextcloud/issues
   license: BSD
   min_ansible_version: 2.0
 
